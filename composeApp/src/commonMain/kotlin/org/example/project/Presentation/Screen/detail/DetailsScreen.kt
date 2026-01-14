@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import cafe.adriel.voyager.core.screen.Screen
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.Icons
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 
@@ -24,6 +25,8 @@ class DetailsScreen: Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
+        //to initialize a viewModel we call the screenModel composable function and initialize the viewModel
+        val viewModel = rememberScreenModel{ DetailsViewModel() }
         Scaffold(
             topBar = {
                TopAppBar(
@@ -49,7 +52,7 @@ class DetailsScreen: Screen {
                 .clickable {navigator.pop()},
                 contentAlignment = Alignment.Center
             ){
-                Text(text = "Details Screen")
+                Text(text = "Details Screen (${viewModel.number.value})" )
             }
         }
     }
